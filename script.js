@@ -11,8 +11,13 @@ import clearCompleted from './modules/clear.js';
  This function displays a list of tasks with checkboxes, input fields, and buttons for editing and
  deleting. */
 const display = () => {
+  const checkbox = document.querySelectorAll('.check');
+  const dotsIcon = document.querySelectorAll('.dots-icon');
+  const hidden = document.querySelectorAll('.hidden-icon');
   const taskContainer = document.querySelector('.task-container');
+  const clearBtn = document.querySelector('.clear-btn');
   let elements = '';
+
   for (let i = 0; i < tasks.length; i += 1) {
     elements += `<div id="container" class="content-container"><div class="content-sub-container">
     <input class="check" type="checkbox">
@@ -22,19 +27,16 @@ const display = () => {
   }
   taskContainer.innerHTML = elements;
   for (let i = 0; i < tasks.length; i += 1) {
-    const dotsIcon = document.querySelectorAll('.dots-icon');
-    const hidden = document.querySelectorAll('.hidden-icon');
+
     hidden[i].addEventListener('click', remove);
     const userTask = document.querySelectorAll('.userTask');
     userTask[i].addEventListener('keyup', edit);
     userTask[i].addEventListener('click', modify);
-    const checkbox = document.querySelectorAll('.check');
     for (let i = 0; i < checkbox.length; i += 1) {
       checkbox[i].addEventListener('click', () => {
         taskStatus(checkbox[i]);
       });
     }
-
     if (tasks[i].completed === true) {
       userTask[i].style.textDecoration = 'line-through';
       userTask[i].style.color = 'rgba(139, 134, 134, 0.8)';
@@ -51,7 +53,6 @@ const display = () => {
       checkbox[i].checked = false;
     }
   }
-  const clearBtn = document.querySelector('.clear-btn');
   clearBtn.addEventListener('click', clearCompleted);
   clearBtn.addEventListener('click', display);
 };
